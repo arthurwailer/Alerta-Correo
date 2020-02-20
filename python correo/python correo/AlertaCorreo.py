@@ -22,7 +22,7 @@ def enviarCorreo(URL,hora_fecha):
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login('slopez@aikologic.com','silladeplata1234')
+    server.login('slopez@aikologic.com','Password')
     list_mail = ['slopez@aikologic.com', 'sebastian.lopez.c@usach.cl']
     for mail in list_mail:
         print mail
