@@ -20,7 +20,7 @@ def enviarCorreo(URL,hora_fecha,list_mail):
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login('slopez@aikologic.com','PASSWORD')
+    server.login('slopez@aikologic.com','silladeplata1234')
     for mail in list_mail:
         print mail
         server.sendmail('slopez@aikologic.com',mail, messaje)
@@ -37,7 +37,7 @@ def ping(host):
     #print type(param), param 
 
     # Building the command. Ex: "ping -c 1 google.com"
-    command = ['ping', param, '2', host]
+    command = ['ping', param, '1', host]
     #print type(command), command
     print "aqui se imprime el subprocces",subprocess.call(command)
     return subprocess.call(command) == 0
@@ -203,155 +203,106 @@ def upd_segundo_mail(id,contador_segundo_correo):
         set contador_segundo_correo = {1}
         where id = {0} '''.format(id,contador_segundo_correo))
         conn.commit()
-        cursor.close()
-        conn.close()
+#         cursor.close()
+#         conn.close()
 
 
+# telnet('mel.cl.trackit.host','80')
+# telnet('cma.cl.trackit.host','80')
+# telnet('200.6.102.247','80')
+# telnet('192.168.123.1','80')
+# telnet('192.168.122.1','80')
 
 
-list_mail_1 = ['slopez@aikologic.com','lmunoz@aikologic.com','contacto@aikologic.com','rpereira@aikologic.com','tpereira@aikologic.com','jira@aikologic.atlassian.net','support@aikologic.atlassian.net']
-list_mail_2 = ['sebastian.lopez.c@usach.cl','lmunoz@aikologic.com']
+ping('192.168.121.1')
 
 
-
-# print getCont_segundo_mail(1)
-
-# upd_segundo_mail(1,1)
-
-# print getCont_segundo_mail(1)
+# list_mail_1 = ['slopez@aikologic.com']
+# list_mail_2 = ['sebastian.lopez.c@usach.cl']
 
 
-# datetime_base_datos = getDatetime(1) # ya convertido a str
+# conn = sqlite3.connect("DatosFs")
+# if conn:
+#     print "Connectado a la BBDD"
+#     cursor = conn.cursor()
+#     print "obteniendo tupla"
+#     cursor.execute("SELECT * FROM DatosFs")
 
-# print datetime_base_datos , type(datetime_base_datos)
-# datetime_base_datos1 =  datetime.strptime(datetime_base_datos, '%Y-%m-%d %H:%M:%S.%f') #convierte a data time
-
-# print tiempo_offline()
-
-conn = sqlite3.connect("DatosFs")
-if conn:
-    print "Connectado a la BBDD"
-    cursor = conn.cursor()
-    print "obteniendo tupla"
-    cursor.execute("SELECT * FROM DatosFs")
-
-    tables = cursor.fetchall()
-    for rows in tables:
-        id = rows[0]
-        url = rows[1]
-        fecha_hora_alarma = rows [2]
-        time_offline = rows [3]
-        contador = rows [4]
-        contador_segundo_correo = rows[5]
-        destinatario = rows[6]
-        print "id : ", id
-        print "url ", url
-        print "fecha_hora_alarma ", fecha_hora_alarma
-        print "time_offline", time_offline
-        print "contador: ", contador # boleano 0 y 1 flag
-        print "contador_segundo_correo",contador_segundo_correo
-        print "destinarario numero: ", destinatario
+#     tables = cursor.fetchall()
+#     for rows in tables:
+#         id = rows[0]
+#         url = rows[1]
+#         fecha_hora_alarma = rows [2]
+#         time_offline = rows [3]
+#         contador = rows [4]
+#         contador_segundo_correo = rows[5]
+#         destinatario = rows[6]
+#         print "id : ", id
+#         print "url ", url
+#         print "fecha_hora_alarma ", fecha_hora_alarma
+#         print "time_offline", time_offline
+#         print "contador: ", contador # boleano 0 y 1 flag
+#         print "contador_segundo_correo",contador_segundo_correo
+#         print "destinarario numero: ", destinatario
 
 
-        now = datetime.now() # hora actual 
-        now1 = str(now) # datetime a str
-        tiempo_actual = hora_fecha()
-        i = 0
-        while i < 5:
-            if telnet(url,'80'):
-                 # escribe 1 en el block de notas
-                print "hay coneccion telnet"
-                i = i + 1
-                time.sleep(5)
-                if i == 5:
-                    telnet(url,'80')
-                    Update(id,1)
-                    time.sleep(5)
-                    upd_segundo_mail(id,0)
-                    update_tiempo_offline(id,str(0))
-                    update_fecha_hora(id,str(0))             
-            else:
-                i = i + 1
-                time.sleep(5)
-                if i == 5:
-                    if getContador(id) == 1:
-                        now = datetime.now() # hora actual 
-                        now1 = str(now) # datetime a str
-                        update_fecha_hora(id,now1)
-                        update_tiempo_offline(id,str(0))
-                        time_caida =tiempo_offline()
-                        Update(id,0)
-                        cont_mail2 = getCont_segundo_mail(id)
-                        cont_mail2 = cont_mail2 + 1
-                        upd_segundo_mail(id,cont_mail2)
+#         now = datetime.now() # hora actual 
+#         now1 = str(now) # datetime a str
+#         tiempo_actual = hora_fecha()
+#         i = 0
+#         j = 0
+#         z = 0
+#         while i < 5:
+#             i = i + 1
+#             if telnet(url,'80'):
+#                  # escribe 1 en el block de notas
+#                 print "hay coneccion telnet"
+#                 z = z + 1
+#                 time.sleep(2)
+#                 if z == 5:
+#                     telnet(url,'80')
+#                     Update(id,1)
+#                     time.sleep(2)
+#                     upd_segundo_mail(id,0)
+#                     update_tiempo_offline(id,str(0))
+#                     update_fecha_hora(id,str(0))             
+#             else:
+#                 j = j + 1 
+#                 time.sleep(2)
+#                 if j == 5:
+#                     if contador == 1:
+#                         update_fecha_hora(id,tiempo_actual)
+#                         update_tiempo_offline(id,str(0))
+#                         #time_caida =tiempo_offline()
+#                         Update(id,0)
+#                         cont_mail2 = getCont_segundo_mail(id)
+#                         cont_mail2 = cont_mail2 + 1
+#                         upd_segundo_mail(id,cont_mail2)
                         
-                        if destinatario == 0:
-                            enviarCorreo(url,tiempo_actual,list_mail_1)
-                        else:
-                            enviarCorreo(url,tiempo_actual,list_mail_2)
+#                         if destinatario == 0:
+#                             enviarCorreo(url,tiempo_actual,list_mail_1)
+#                         else:
+#                             enviarCorreo(url,tiempo_actual,list_mail_2)
 
 
-                    else:
-                        tiempo_caido = tiempo_offline()
-                        update_tiempo_offline(id,tiempo_caido)
-                        contador_segundo_correo = contador_segundo_correo + 1
-                        upd_segundo_mail(id,contador_segundo_correo)
-                        if  getCont_segundo_mail(id) == 3:
-                            time_caida =tiempo_offline()
-                            if destinatario == 0:
-                                enviarCorreo(url,tiempo_actual,list_mail_1)
-                            else:
-                                enviarCorreo(url,tiempo_actual,list_mail_2)
+#                     else:
+#                         #tiempo_caido = tiempo_offline()
+#                         #update_tiempo_offline(id,tiempo_caido)
+#                         contador_segundo_correo = contador_segundo_correo + 1
+#                         upd_segundo_mail(id,contador_segundo_correo)
+#                         if contador_segundo_correo == 3:
+#                             #time_caida =tiempo_offline()
+#                             if destinatario == 0:
+#                                 enviarCorreo(url,fecha_hora_alarma,list_mail_1)
+#                             else:
+#                                 enviarCorreo(url,fecha_hora_alarma,list_mail_2)
 
-                        else:
-                            print "no hace nada"
-
-
-
+#                         else:
+#                             print "no hace nada"
 
 
 
 
-
-
-                
-
-
-
-
-        
-
-
-
-
-
-
-
-# for URL in URL_lista:
-#     print "url", URL
-#     i = 0
-#     while i < 5:
-#         if telnet(URL,'80'):
-#              # escribe 1 en el block de notas
-#             print "hay coneccion telnet"
-#             i = i + 1
-#             if i == 5:
-#                 telnet(URL,'80')
-#                 escribir(1)
-#                 time.sleep(5)
-#                 break
-#         else:
-#             if leer() == 1 : # si es 1 es primera vez que se envia el correo 
-#                 i = i + 1
-               
-#                 if i == 5 :
-#                     now = datetime.now() # hora actual 
-#                     enviarCorreo(URL,str(now))
-#                     print "no hay telnet y se envia correo de alerta "
-#                     time.sleep(5)
-#                     escribir(0) # Escribe 0 en el block de notas
-#                     break
-                
 
 
 
@@ -370,31 +321,12 @@ if conn:
 
 
 
-# for URL in URL_lista:
-#     print "url", URL
-#     i = 0
-#     while i < 5:
-#         if telnet(URL,'80'):
-#              # escribe 1 en el block de notas
-#             print "hay coneccion telnet"
-#             i = i + 1
-#             if i == 5:
-#                 telnet(URL,'80')
-#                 escribir(1)
-#                 time.sleep(5)
-#                 break
-#         else:
-#             if leer() == 1 : # si es 1 es primera vez que se envia el correo 
-#                 i = i + 1
-               
-#                 if i == 5 :
-#                     now = datetime.now() # hora actual 
-#                     enviarCorreo(URL,str(now))
-#                     print "no hay telnet y se envia correo de alerta "
-#                     time.sleep(5)
-#                     escribir(0) # Escribe 0 en el block de notas
-#                     break
-                
+
+
+        
+
+
+
 
 
 
